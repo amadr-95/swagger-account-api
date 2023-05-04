@@ -53,4 +53,12 @@ public class AccountController {
         accountService.deleteAccount(accountId);
     }
 
+    @PutMapping(path = "{accountId}")
+    public void updateAccount(@PathVariable("accountId") Long accountId,
+                              @RequestParam(required = false) String username,
+                              @RequestParam(required = false) String email
+                              ){
+        accountService.updateAccount(accountId,username,email);
+    }
+
 }

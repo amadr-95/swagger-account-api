@@ -30,7 +30,7 @@ public class Account {
     )
     @GeneratedValue(
             strategy = SEQUENCE,
-            generator = "account_sequence"
+            generator = "account_sequence" //=sequenceName
     )
     @Column(
             name = "id",
@@ -40,8 +40,7 @@ public class Account {
 
     @Column(
             name = "username",
-            nullable = false,
-            updatable = false
+            nullable = false
     )
     private String username; //unique
 
