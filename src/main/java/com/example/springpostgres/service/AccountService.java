@@ -24,8 +24,8 @@ public class AccountService {
         return accountRepository.findAll();
     }
 
-    public Optional<Account> findById(Long userId){
-        return accountRepository.findById(userId);
+    public Optional<Account> findById(Long id){
+        return accountRepository.findById(id);
     }
 
     public Optional<Account> findByUsername(String username){
