@@ -57,7 +57,7 @@ public class AccountService {
         //comprobamos si existe la cuenta con el accountId
         if (accountRepository.findById(accountId).isEmpty())
             throw new IllegalArgumentException("user with id "+accountId+" does not exist");
-        Account account = accountRepository.getReferenceById(accountId); //rescatamos la cuenta para editar
+        Account account = accountRepository.findById(accountId).get(); //rescatamos la cuenta para editar
         //validamos los parametros
         if(accountRepository.findByUsername(username).isPresent())
             throw new IllegalArgumentException("username taken");
