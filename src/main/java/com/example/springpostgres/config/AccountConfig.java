@@ -16,14 +16,9 @@ public class AccountConfig {
     CommandLineRunner commandLineRunner(AccountRepository accountRepository){
         return args -> {
             List<Account> accounts = new ArrayList<>();
-            String user, pass, email;
             for (int i = 1; i <= 10; i++) {
-                user = "user"+i;
-                pass = "password"+i;
-                email = user+"@gmail.com";
-                accounts.add(new Account(user,pass,email));
+                accountRepository.save(new Account(15000));
             }
-            accountRepository.saveAll(accounts);
         };
     }
 }

@@ -7,20 +7,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Entity
-@Table(
-        name = "Accounts",
-        uniqueConstraints = {
-                @UniqueConstraint(name = "unique_username", columnNames = "username"),
-                @UniqueConstraint(name = "unique_email", columnNames = "email")
-        }
-)
+@Table(name = "Account")
 public class Account {
     @Id
     @SequenceGenerator(
@@ -33,90 +27,76 @@ public class Account {
             generator = "account_sequence" //=sequenceName
     )
     @Column(
-            name = "id",
+            name = "idAccount",
             updatable = false
     )
-    private Long userId;
+    private Long idAccount;
 
     @Column(
-            name = "username",
-            nullable = false
+            name = "balance",
+            precision = 2
+            /*can be null*/
+            /*can be updated*/
     )
-    private String username; //unique
+    private double balance;
 
     @Column(
-            name = "password",
-            nullable = false
+            name = "creationDate",
+            nullable = false,
+            updatable = false
     )
-    private String password;
+    private LocalDate creationDate;
 
-    @Column(
-            name = "email",
-            nullable = false
-    )
-    private String email; //unique
+    /*FK idClient
+    *
+    *
+    *
+    *
+    * */
 
-    @Column(
-            name = "creation_date"
-    )
-    private LocalDate createdOn;
-
-    @Column(
-            name = "last_login"
-    )
-    private LocalDate lastLogin;
+    /*Constructors*/
 
     public Account() {
     }
 
-    public Account(String username, String password, String email) {
-        this.username = username;
-        this.password = String.valueOf(password.hashCode());
-        this.email = email;
-        this.createdOn = LocalDate.now();
+    public Account(double balance) {
+        this.balance = balance;
+        this.creationDate = LocalDate.now();
+        //this.creationDate = LocalDate.parse(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MMM-dd")));
+        /*
+        No es posible cambiar el formato de la fecha siendo tipo DATE porque la BBDD solo acepta el formato yyyy/mm/dd
+        Siendo la variable creationDate de tipo String si seria posible
+        */
     }
 
-    public Long getUserId() {
-        return userId;
+    /*Getters&Setters*/
+
+    public Long getIdAccount() {
+        return idAccount;
     }
 
-    public String getUsername() {
-        return username;
+    public double getBalance() {
+        return balance;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public LocalDate getCreationDate() {
+        return creationDate;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public LocalDate getCreatedOn() {
-        return createdOn;
-    }
-
-    public LocalDate getLastLogin() {
-        return LocalDate.now();
+    public void setCreationDate() {
+        this.creationDate = LocalDate.now();
     }
 
     @Override
     public String toString() {
         return "Account{" +
-                "userId=" + userId +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", createdOn=" + createdOn +
-                ", lastLogin=" + lastLogin +
+                "idAccount=" + idAccount +
+                ", balance=" + balance +
+                ", creationDate=" + creationDate +
                 '}';
     }
 }
