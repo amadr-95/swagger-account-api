@@ -135,8 +135,8 @@ public class Client {
         return birth;
     }
 
-    public void setBirth(LocalDate birth) {
-        this.birth = birth;
+    public void setBirth(String birth) {
+        this.birth = LocalDate.parse(birth, DateTimeFormatter.ofPattern("yyyy-MMM-dd"));
     }
 
     @Override

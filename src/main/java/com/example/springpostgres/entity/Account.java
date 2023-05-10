@@ -57,6 +57,7 @@ public class Account {
     /*Constructors*/
 
     public Account() {
+        this.creationDate = LocalDate.now();
     }
 
     public Account(double balance) {
