@@ -1,11 +1,19 @@
 package com.example.springpostgres.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -77,7 +85,7 @@ public class Client {
     @OneToMany(
             fetch = FetchType.LAZY,
             mappedBy = "client", //mismo nombre que el de la propiedad de tipo Client definida en la clase Account
-            cascade = CascadeType.ALL
+            cascade = CascadeType.ALL //esto hace que cuando se persista un cliente, tambien lo hagan sus entidades hijas (cuentas)
     )
     /*Esta propiedad no es un campo de la BBDD (entre otras cosas porque no se puede
     guardar una lista en una BBDD relacional), pero si podremos acceder a la lista de cuentas

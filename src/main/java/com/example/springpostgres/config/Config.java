@@ -1,8 +1,7 @@
 package com.example.springpostgres.config;
 
-import com.example.springpostgres.entity.Account;
 import com.example.springpostgres.entity.Client;
-import com.example.springpostgres.repository.AccountRepository;
+import com.example.springpostgres.repository.ClientRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,20 +18,16 @@ public class Config {
             "Miller", "Davis", "Garcia", "Wilson", "Anderson" };
 
     @Bean
-    CommandLineRunner commandLineRunner(AccountRepository accountRepository,
-                                               AccountRepository clientRepository){
+    CommandLineRunner commandLineRunner(ClientRepository clientRepository){
         return args -> {
             Random r = new Random();
-            Client client;
             for (int i = 0; i < 10; i++) {
                 String name = names[r.nextInt(names.length)];
                 String surname = surnames[r.nextInt(surnames.length)];
                 String dni = generateRandomDNI();
                 String email = generateRandomEmail();
                 String birth = generateRandomBirthDate();
-                //client = new Client(name, surname, dni, email, birth);
-                //accountRepository.save(new Account(r.nextDouble(0, 100000), client));
-                //clientRepository.save(client);
+                //clientRepository.save(new Client(name, surname, dni, email, birth));
             }
 
             /*for (int i = 1; i <= 10; i++) {
