@@ -61,12 +61,8 @@ public class Account {
     )
     private LocalDate createdOn;
 
-    @Column(
-            name = "last_login"
-    )
-    private LocalDate lastLogin;
-
     public Account() {
+        this.createdOn = LocalDate.now();
     }
 
     public Account(String username, String password, String email) {
@@ -104,8 +100,8 @@ public class Account {
         return createdOn;
     }
 
-    public LocalDate getLastLogin() {
-        return LocalDate.now();
+    public void setCreatedOn(){
+        this.createdOn = LocalDate.now();
     }
 
     @Override
@@ -116,7 +112,6 @@ public class Account {
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", createdOn=" + createdOn +
-                ", lastLogin=" + lastLogin +
                 '}';
     }
 }
