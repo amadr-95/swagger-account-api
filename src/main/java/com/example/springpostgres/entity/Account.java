@@ -1,17 +1,11 @@
 
 package com.example.springpostgres.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "Account")
@@ -47,12 +41,16 @@ public class Account {
     )
     private LocalDate creationDate;
 
-    /*FK idClient
-    *
-    *
-    *
-    *
-    * */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(
+            name = "idClient", //crea la columna idClient en la tabla Account que relaciona cliente-cuenta
+            nullable = false,
+            updatable = false,
+            foreignKey = @ForeignKey(
+                    name = "client_id_fk"
+            )
+    )
+    private Client client;
 
     /*Constructors*/
 
@@ -63,11 +61,6 @@ public class Account {
     public Account(double balance) {
         this.balance = balance;
         this.creationDate = LocalDate.now();
-        //this.creationDate = LocalDate.parse(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MMM-dd")));
-        /*
-        No es posible cambiar el formato de la fecha siendo tipo DATE porque la BBDD solo acepta el formato yyyy/mm/dd
-        Siendo la variable creationDate de tipo String si seria posible
-        */
     }
 
     /*Getters&Setters*/
@@ -90,6 +83,14 @@ public class Account {
 
     public void setCreationDate() {
         this.creationDate = LocalDate.now();
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     @Override

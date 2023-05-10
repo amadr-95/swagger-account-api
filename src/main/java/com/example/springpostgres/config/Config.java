@@ -3,13 +3,11 @@ package com.example.springpostgres.config;
 import com.example.springpostgres.entity.Account;
 import com.example.springpostgres.entity.Client;
 import com.example.springpostgres.repository.AccountRepository;
-import com.example.springpostgres.repository.ClientRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 @Configuration
@@ -21,16 +19,29 @@ public class Config {
             "Miller", "Davis", "Garcia", "Wilson", "Anderson" };
 
     @Bean
-    CommandLineRunner commandLineRunnerAccount(AccountRepository accountRepository){
+    CommandLineRunner commandLineRunner(AccountRepository accountRepository,
+                                               AccountRepository clientRepository){
         return args -> {
             Random r = new Random();
-            for (int i = 1; i <= 10; i++) {
-                accountRepository.save(new Account(r.nextDouble(0, 100000)));
+            Client client;
+            for (int i = 0; i < 10; i++) {
+                String name = names[r.nextInt(names.length)];
+                String surname = surnames[r.nextInt(surnames.length)];
+                String dni = generateRandomDNI();
+                String email = generateRandomEmail();
+                String birth = generateRandomBirthDate();
+                //client = new Client(name, surname, dni, email, birth);
+                //accountRepository.save(new Account(r.nextDouble(0, 100000), client));
+                //clientRepository.save(client);
             }
+
+            /*for (int i = 1; i <= 10; i++) {
+                accountRepository.save(new Account(r.nextDouble(0, 100000)));
+            }*/
         };
     }
 
-    @Bean
+    /*@Bean
     CommandLineRunner commandLineRunnerClient(ClientRepository clientRepository){
         return args -> {
             Random r = new Random();
@@ -44,7 +55,7 @@ public class Config {
                 clientRepository.save(new Client(name, surname, DNI, email, birth));
             }
         };
-    }
+    }*/
 
     private String generateRandomBirthDate() {
         Random r = new Random();
@@ -53,9 +64,7 @@ public class Config {
         int month = r.nextInt(1,13); // Generate month between 1 and 12
         int day = r.nextInt(1,28); // Generate day between 1 and 28
 
-        LocalDate date = LocalDate.of(year, month, day);
-
-        return date.format(DateTimeFormatter.ofPattern("yyyy-MMM-dd"));
+        return String.valueOf(LocalDate.of(year, month, day));
     }
 
     private String generateRandomEmail() {
@@ -74,8 +83,8 @@ public class Config {
 
         for (int i = 0; i < 8; i++) {
             sb.append(r.nextInt(10));
-
-        }// Generar una letra aleatoria para el DNI
+        }
+        // Generar una letra aleatoria para el DNI
         String letras = "TRWAGMYFPDXBNJZSQVHLCKE";
         char letra = letras.charAt(r.nextInt(letras.length()));
 

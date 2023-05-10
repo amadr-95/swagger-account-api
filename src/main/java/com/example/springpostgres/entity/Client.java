@@ -1,17 +1,12 @@
 package com.example.springpostgres.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
+import jakarta.persistence.*;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(
@@ -63,7 +58,7 @@ public class Client {
             nullable = false,
             updatable = false
     )
-    private String DNI; //unique
+    private String dni; //unique
 
     @Column(
             name = "email",
@@ -79,17 +74,28 @@ public class Client {
     )
     private LocalDate birth;
 
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            mappedBy = "client", //mismo nombre que el de la propiedad de tipo Client definida en la clase Account
+            cascade = CascadeType.ALL
+    )
+    /*Esta propiedad no es un campo de la BBDD (entre otras cosas porque no se puede
+    guardar una lista en una BBDD relacional), pero si podremos acceder a la lista de cuentas
+    de cada cliente mediantes consultas*/
+    private List<Account> accounts;
+
     /*Constructors*/
 
     public Client() {
+
     }
 
-    public Client(String name, String surnames, String DNI, String email, String birth) {
+    public Client(String name, String surnames, String dni, String email, String birth) {
         this.name = name;
         this.surnames = surnames;
-        this.DNI = DNI;
+        this.dni = dni;
         this.email = email;
-        this.birth = LocalDate.parse(birth, DateTimeFormatter.ofPattern("yyyy-MMM-dd"));
+        this.birth = LocalDate.parse(birth);
     }
 
     /*Getters&Setters*/
@@ -115,12 +121,12 @@ public class Client {
         this.surnames = surnames;
     }
 
-    public String getDNI() {
-        return DNI;
+    public String getDni() {
+        return dni;
     }
 
-    public void setDNI(String DNI) {
-        this.DNI = DNI;
+    public void setDni(String dni) {
+        this.dni = dni;
     }
 
     public String getEmail() {
@@ -136,7 +142,19 @@ public class Client {
     }
 
     public void setBirth(String birth) {
-        this.birth = LocalDate.parse(birth, DateTimeFormatter.ofPattern("yyyy-MMM-dd"));
+        this.birth = LocalDate.parse(birth);
+    }
+
+    public List<Account> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(List<Account> accounts) {
+        this.accounts = accounts;
+    }
+
+    public void addAccount(Account account){
+        accounts.add(account);
     }
 
     @Override
@@ -145,7 +163,7 @@ public class Client {
                 "idClient=" + idClient +
                 ", name='" + name + '\'' +
                 ", surnames='" + surnames + '\'' +
-                ", DNI='" + DNI + '\'' +
+                ", DNI='" + dni + '\'' +
                 ", email='" + email + '\'' +
                 ", birth=" + birth +
                 '}';
