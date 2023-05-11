@@ -5,9 +5,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface AccountRepository extends JpaRepository<Account, Long> {
+
+    @Query(value = "select * from Accounts", nativeQuery = true)
+    List<Account> findAll();
+
+    @Query(value = "select * from Accounts where Accounts.name = :name", nativeQuery = true)
+    List<Account> findByName(@Param("name") String name); //el nombre puede estar repetido por eso devolvemos una lista
 
     //@Query("select a from Accounts a where a.username = :username")
     @Query(value = "select * from Accounts where Accounts.username = :username", nativeQuery = true)

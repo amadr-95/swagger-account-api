@@ -4,8 +4,11 @@ import com.example.springpostgres.repository.AccountRepository;
 import com.example.springpostgres.entity.Account;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,8 +23,12 @@ public class AccountService {
     }
 
     //GET
-    public List<Account> findAll(){
-        return accountRepository.findAll();
+    public List<Account> findAll(String name){
+        if (name == null || name.isEmpty())
+            return accountRepository.findAll(); // si el name es null devuelvo la lista completa
+        else{
+            return accountRepository.findByName(name); // si no, busco por nombre
+        }
     }
 
     public Optional<Account> findById(Long id){

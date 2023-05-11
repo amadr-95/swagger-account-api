@@ -39,6 +39,13 @@ public class Account {
     private Long userId;
 
     @Column(
+            name = "name",
+            nullable = false,
+            updatable = false
+    )
+    private String name;
+
+    @Column(
             name = "username",
             nullable = false
     )
@@ -65,9 +72,10 @@ public class Account {
         this.createdOn = LocalDate.now();
     }
 
-    public Account(String username, String password, String email) {
+    public Account(String name, String username, String password, String email) {
+        this.name = name;
         this.username = username;
-        this.password = String.valueOf(password.hashCode());
+        this.password = password;
         this.email = email;
         this.createdOn = LocalDate.now();
     }
@@ -100,14 +108,23 @@ public class Account {
         return createdOn;
     }
 
-    public void setCreatedOn(){
-        this.createdOn = LocalDate.now();
+    public void setName(String name){
+        this.name = name;
     }
+
+    public String getName(){
+        return name;
+    }
+
+    /*public void setCreatedOn(){
+        this.createdOn = LocalDate.now();
+    }*/
 
     @Override
     public String toString() {
         return "Account{" +
                 "userId=" + userId +
+                ", name='" + name + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +

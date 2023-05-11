@@ -3,13 +3,16 @@ package com.example.springpostgres.controller;
 import com.example.springpostgres.entity.Account;
 import com.example.springpostgres.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/accounts")
+@RequestMapping("/api")
 public class AccountController {
 
     private final AccountService accountService;
@@ -19,10 +22,12 @@ public class AccountController {
         this.accountService = accountService;
     }
 
-    @GetMapping()
+    @GetMapping("/accounts")
     @ResponseBody()
-    public List<Account> findAll(){
-        return accountService.findAll();
+    public ResponseEntity<List<Account>> findAll(@RequestParam(required = false, name = "name") String name){
+        if(accountService.findAll(name).isEmpty())
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(accountService.findAll(name), HttpStatus.OK);
     }
 
     @GetMapping("/filter/id")
