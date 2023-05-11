@@ -1,6 +1,6 @@
 package com.example.springpostgres.repository;
 
-import com.example.springpostgres.entity.Client;
+import com.example.springpostgres.model.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

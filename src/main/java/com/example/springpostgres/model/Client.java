@@ -1,4 +1,4 @@
-package com.example.springpostgres.entity;
+package com.example.springpostgres.model;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -14,6 +14,7 @@ import jakarta.persistence.UniqueConstraint;
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -162,7 +163,7 @@ public class Client {
     }
 
     public void addAccount(Account account){
-        accounts.add(account);
+        this.accounts.add(account);
     }
 
     @Override
