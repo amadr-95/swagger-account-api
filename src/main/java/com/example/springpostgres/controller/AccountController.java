@@ -72,12 +72,14 @@ public class AccountController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PutMapping(path = "{accountId}")
-    public void updateAccount(@PathVariable("accountId") Long accountId,
-                              @RequestParam(required = false) String username,
-                              @RequestParam(required = false) String email
-                              ){
-        accountService.updateAccount(accountId,username,email);
+    @PutMapping("/update/{id}")
+    public ResponseEntity<HttpStatus> updateAccount(
+            @PathVariable("id") Long id,
+            @RequestParam(required = false) String username,
+            @RequestParam(required = false) String email
+    ){
+        accountService.updateById(id,username,email);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

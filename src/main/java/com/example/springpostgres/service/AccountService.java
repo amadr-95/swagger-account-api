@@ -71,11 +71,11 @@ public class AccountService {
 
     //UPDATE
     @Transactional
-    public void updateAccount(Long accountId, String username, String email){
-        //comprobamos si existe la cuenta con el accountId
-        if (accountRepository.findById(accountId).isEmpty())
-            throw new IllegalArgumentException("user with id "+accountId+" does not exist");
-        Account account = accountRepository.findById(accountId).get(); //rescatamos la cuenta para editar
+    public void updateById(Long id, String username, String email){
+        //comprobamos si existe la cuenta con el id
+        if (accountRepository.findById(id).isEmpty())
+            throw new IllegalArgumentException("user with id "+id+" does not exist");
+        Account account = accountRepository.findById(id).get(); //rescatamos la cuenta para editar
         //validamos los parametros
         if(accountRepository.findByUsername(username).isPresent())
             throw new IllegalArgumentException("username taken");
