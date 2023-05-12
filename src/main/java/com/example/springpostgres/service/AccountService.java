@@ -51,19 +51,22 @@ public class AccountService {
     }*/
 
     //POST
-    public Account addAccount(Account account){
+    public void addAccount(Account account){
         if(accountRepository.findByUsername(account.getUsername()).isPresent()
         || accountRepository.findByEmail(account.getEmail()).isPresent())
             throw new IllegalArgumentException("user or email are taken");
-        return accountRepository.save(account);
-        //return "Account created succesfully";
+        accountRepository.save(account);
     }
 
     //DELETE
-    public void deleteAccount(Long accountId){
-        if (accountRepository.findById(accountId).isEmpty())
-            throw new IllegalArgumentException("user with id "+accountId+" does not exist");
-        accountRepository.deleteById(accountId);
+    public void deleteById(Long id){
+        if (accountRepository.findById(id).isEmpty())
+            throw new IllegalArgumentException("user with id "+id+" does not exist");
+        accountRepository.deleteById(id);
+    }
+
+    public void deleteAll(){
+        accountRepository.deleteAll();
     }
 
     //UPDATE

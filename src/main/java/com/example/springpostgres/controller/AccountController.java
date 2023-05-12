@@ -55,13 +55,21 @@ public class AccountController {
     }
 
     @PostMapping
-    public ResponseEntity<Account> addAccount(@RequestBody Account account){
-        return new ResponseEntity<>(accountService.addAccount(account), HttpStatus.CREATED);
+    public ResponseEntity<HttpStatus> addAccount(@RequestBody Account account){
+        accountService.addAccount(account);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @DeleteMapping(path = "{accountId}")
-    public void deleteAccount(@PathVariable("accountId") Long accountId){
-        accountService.deleteAccount(accountId);
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<HttpStatus> deleteById(@PathVariable("id") Long id){
+        accountService.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<HttpStatus> deleteAll(){
+        accountService.deleteAll();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping(path = "{accountId}")
