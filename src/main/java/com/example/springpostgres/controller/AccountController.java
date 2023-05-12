@@ -32,7 +32,7 @@ public class AccountController {
 
     @GetMapping("/filter/id")
     @ResponseBody
-    public ResponseEntity<Optional<Account>> accountById(@RequestParam Long id){
+    public ResponseEntity<Optional<Account>> findById(@RequestParam Long id){
         if(accountService.findById(id).isEmpty())
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(accountService.findById(id), HttpStatus.OK);
@@ -40,7 +40,7 @@ public class AccountController {
 
     @GetMapping("/filter/username")
     @ResponseBody
-    public ResponseEntity<Optional<Account>> accountByUsername(@RequestParam String username){
+    public ResponseEntity<Optional<Account>> findByUsername(@RequestParam String username){
         if(accountService.findByUsername(username).isEmpty())
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(accountService.findByUsername(username), HttpStatus.OK);
@@ -48,15 +48,15 @@ public class AccountController {
 
     @GetMapping("/filter/email")
     @ResponseBody
-    public ResponseEntity<Optional<Account>> accountByEmail(@RequestParam String email){
+    public ResponseEntity<Optional<Account>> findByEmail(@RequestParam String email){
         if(accountService.findByEmail(email).isEmpty())
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(accountService.findByEmail(email), HttpStatus.OK);
     }
 
     @PostMapping
-    public void addAccount(@RequestBody Account account){
-        accountService.addNewAccount(account);
+    public ResponseEntity<Account> addAccount(@RequestBody Account account){
+        return new ResponseEntity<>(accountService.addAccount(account), HttpStatus.CREATED);
     }
 
     @DeleteMapping(path = "{accountId}")

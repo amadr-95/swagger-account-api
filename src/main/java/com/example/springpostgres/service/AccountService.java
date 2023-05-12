@@ -46,12 +46,17 @@ public class AccountService {
         //CuentaNotFoundException
     }
 
+    /*public List<Account> findByEmailConatinsDomain(String dominio){
+
+    }*/
+
     //POST
-    public void addNewAccount(Account account){
+    public Account addAccount(Account account){
         if(accountRepository.findByUsername(account.getUsername()).isPresent()
         || accountRepository.findByEmail(account.getEmail()).isPresent())
             throw new IllegalArgumentException("user or email are taken");
-        accountRepository.save(account);
+        return accountRepository.save(account);
+        //return "Account created succesfully";
     }
 
     //DELETE
