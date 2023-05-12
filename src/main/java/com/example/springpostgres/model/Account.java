@@ -1,5 +1,5 @@
 
-package com.example.springpostgres.entity;
+package com.example.springpostgres.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -84,6 +84,14 @@ public class Account {
         return userId;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -91,6 +99,7 @@ public class Account {
     public void setUsername(String username) {
         this.username = username;
     }
+
 
     public void setPassword(String password) {
         this.password = password;
@@ -108,17 +117,9 @@ public class Account {
         return createdOn;
     }
 
-    public void setName(String name){
-        this.name = name;
+    public void setCreatedOn(String createdOn) {
+        this.createdOn = LocalDate.parse(createdOn);
     }
-
-    public String getName(){
-        return name;
-    }
-
-    /*public void setCreatedOn(){
-        this.createdOn = LocalDate.now();
-    }*/
 
     @Override
     public String toString() {
