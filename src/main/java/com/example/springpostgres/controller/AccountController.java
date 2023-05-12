@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/accounts")
 public class AccountController {
 
     private final AccountService accountService;
@@ -21,30 +21,37 @@ public class AccountController {
         this.accountService = accountService;
     }
 
-    @GetMapping("/accounts")
-    @ResponseBody()
-    public ResponseEntity<List<Account>> findAll(@RequestParam(required = false, name = "name") String name){
+    @GetMapping
+    @ResponseBody
+    public ResponseEntity<List<Account>> findAll(
+            @RequestParam(required = false, name = "name") String name){
         if(accountService.findAll(name).isEmpty())
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         return new ResponseEntity<>(accountService.findAll(name), HttpStatus.OK);
     }
 
     @GetMapping("/filter/id")
-    @ResponseBody()
-    public Optional<Account> accountById(@RequestParam Long userId){
-        return accountService.findById(userId);
+    @ResponseBody
+    public ResponseEntity<Optional<Account>> accountById(@RequestParam Long id){
+        if(accountService.findById(id).isEmpty())
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(accountService.findById(id), HttpStatus.OK);
     }
 
     @GetMapping("/filter/username")
-    @ResponseBody()
-    public Optional<Account> accountByUsername(@RequestParam String username){
-        return accountService.findByUsername(username);
+    @ResponseBody
+    public ResponseEntity<Optional<Account>> accountByUsername(@RequestParam String username){
+        if(accountService.findByUsername(username).isEmpty())
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(accountService.findByUsername(username), HttpStatus.OK);
     }
 
     @GetMapping("/filter/email")
     @ResponseBody
-    public Optional<Account> accountByEmail(@RequestParam String email){
-        return accountService.findByEmail(email);
+    public ResponseEntity<Optional<Account>> accountByEmail(@RequestParam String email){
+        if(accountService.findByEmail(email).isEmpty())
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(accountService.findByEmail(email), HttpStatus.OK);
     }
 
     @PostMapping

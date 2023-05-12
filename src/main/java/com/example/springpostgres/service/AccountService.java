@@ -30,14 +30,20 @@ public class AccountService {
 
     public Optional<Account> findById(Long id){
         return accountRepository.findById(id);
+        //Si no lo encuentra deberia devolver una excepcion personalizada
+        //CuentaNotFoundException
     }
 
     public Optional<Account> findByUsername(String username){
         return accountRepository.findByUsername(username);
+        //Si no lo encuentra deberia devolver una excepcion personalizada
+        //CuentaNotFoundException
     }
 
     public Optional<Account> findByEmail(String email){
         return accountRepository.findByEmail(email);
+        //Si no lo encuentra deberia devolver una excepcion personalizada
+        //CuentaNotFoundException
     }
 
     //POST
