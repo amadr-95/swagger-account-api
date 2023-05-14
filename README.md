@@ -9,6 +9,7 @@ Operaciones CRUD:
 | Methods | Urls                                 | Actions                                                     |
 |---------|--------------------------------------|-------------------------------------------------------------|
 | GET     | /api/clients                         | devuelve la lista de clientes                               |
+| GET     | /api/accounts                        | devuelve la lista de cuentas                                |
 | GET     | /api/clients/:id/accounts            | devuelve una lista de todas las cuentas de un cliente :id   |
 | GET     | /api/accounts/:id                    | devuelve la cuenta :id                                      |
 | POST    | /api/clients/new                     | crea un cliente nuevo con una lista de cuentas (al menos 1) |
