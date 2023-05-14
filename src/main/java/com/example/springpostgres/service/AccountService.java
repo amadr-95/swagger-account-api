@@ -55,6 +55,7 @@ public class AccountService {
         if(accountRepository.findByUsername(account.getUsername()).isPresent()
         || accountRepository.findByEmail(account.getEmail()).isPresent())
             throw new IllegalArgumentException("user or email are taken");
+            //Deberia lanzar una excepcion personalizada UserOrEmailTakenException
         accountRepository.save(account);
     }
 
@@ -62,6 +63,8 @@ public class AccountService {
     public void deleteById(Long id){
         if (accountRepository.findById(id).isEmpty())
             throw new IllegalArgumentException("user with id "+id+" does not exist");
+            //Si no lo encuentra deberia devolver una excepcion personalizada
+            //CuentaNotFoundException
         accountRepository.deleteById(id);
     }
 
@@ -75,15 +78,19 @@ public class AccountService {
         //comprobamos si existe la cuenta con el id
         if (accountRepository.findById(id).isEmpty())
             throw new IllegalArgumentException("user with id "+id+" does not exist");
+        //Si no lo encuentra deberia devolver una excepcion personalizada
+        //CuentaNotFoundException
         Account account = accountRepository.findById(id).get(); //rescatamos la cuenta para editar
         //validamos los parametros
         if(accountRepository.findByUsername(username).isPresent())
             throw new IllegalArgumentException("username taken");
+        //Deberia lanzar una excepcion personalizada UserOrEmailTakenException
         if(username != null && !username.isEmpty() && !username.equalsIgnoreCase(account.getUsername()))
             account.setUsername(username);
 
         if(accountRepository.findByEmail(email).isPresent())
             throw new IllegalArgumentException("email taken");
+        //Deberia lanzar una excepcion personalizada UserOrEmailTakenException
         if(email != null && email.contains("@") && !email.equalsIgnoreCase(account.getEmail()))
             account.setEmail(email);
     }
