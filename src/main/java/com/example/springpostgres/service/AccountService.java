@@ -12,6 +12,7 @@ import java.util.Optional;
 @Service
 public class AccountService {
 
+
     private final AccountRepository accountRepository;
 
     @Autowired
@@ -26,6 +27,7 @@ public class AccountService {
         else{
             return accountRepository.findByName(name);
         }
+
     }
 
     public Optional<Account> findById(Long id){
