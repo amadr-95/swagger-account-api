@@ -100,7 +100,6 @@ public class Account {
         this.username = username;
     }
 
-
     public void setPassword(String password) {
         this.password = password;
     }
