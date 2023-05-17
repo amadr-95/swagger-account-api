@@ -50,6 +50,13 @@ public class AccountController {
         return new ResponseEntity<>(accountService.findByEmail(email), HttpStatus.OK);
     }
 
+    @GetMapping("/filter/domain")
+    public ResponseEntity<List<Account>> findByEmailContainsDomain(@RequestParam String domain){
+        if(accountService.findByEmailContainsDomain(domain).isEmpty())
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(accountService.findByEmailContainsDomain(domain), HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<HttpStatus> addAccount(@RequestBody Account account){
         try{

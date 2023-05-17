@@ -6,6 +6,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,8 +49,21 @@ public class AccountService {
         //CuentaNotFoundException
     }
 
-    /*public List<Account> findByEmailConatinsDomain(String dominio){
+    public List<Account> findByEmailContainsDomain(String domain){
+        List<Account> accounts = new ArrayList<>();
+        for (Account a: accountRepository.findAll()) {
+            String mail = a.getEmail().split("@")[1];
+            if(mail.equalsIgnoreCase(domain))
+                accounts.add(a);
+        }
+        return accounts;
+    }
 
+    /* //Con expresiones lambda
+    public List<Account> findByEmailContainsDomain(String domain) {
+        return accountRepository.findAll().stream()
+                .filter(a -> a.getEmail().split("@")[1].equalsIgnoreCase(domain))
+                .collect(Collectors.toList());
     }*/
 
     //POST
