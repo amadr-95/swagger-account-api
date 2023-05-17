@@ -22,7 +22,6 @@ public class AccountController {
     }
 
     @GetMapping
-    @ResponseBody
     public ResponseEntity<List<Account>> findAll(
             @RequestParam(required = false, name = "name") String name){
         if(accountService.findAll(name).isEmpty())
@@ -31,7 +30,6 @@ public class AccountController {
     }
 
     @GetMapping("/filter/id")
-    @ResponseBody
     public ResponseEntity<Optional<Account>> findById(@RequestParam Long id){
         if(accountService.findById(id).isEmpty())
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -39,7 +37,6 @@ public class AccountController {
     }
 
     @GetMapping("/filter/username")
-    @ResponseBody
     public ResponseEntity<Optional<Account>> findByUsername(@RequestParam String username){
         if(accountService.findByUsername(username).isEmpty())
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -47,7 +44,6 @@ public class AccountController {
     }
 
     @GetMapping("/filter/email")
-    @ResponseBody
     public ResponseEntity<Optional<Account>> findByEmail(@RequestParam String email){
         if(accountService.findByEmail(email).isEmpty())
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -56,13 +52,21 @@ public class AccountController {
 
     @PostMapping
     public ResponseEntity<HttpStatus> addAccount(@RequestBody Account account){
-        accountService.addAccount(account);
+        try{
+            accountService.addAccount(account);
+        }catch (IllegalArgumentException e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<HttpStatus> deleteById(@PathVariable("id") Long id){
-        accountService.deleteById(id);
+        try {
+            accountService.deleteById(id);
+        }catch(IllegalArgumentException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -78,7 +82,11 @@ public class AccountController {
             @RequestParam(required = false) String username,
             @RequestParam(required = false) String email
     ){
-        accountService.updateById(id,username,email);
+        try{
+            accountService.updateById(id,username,email);
+        }catch (IllegalArgumentException e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
