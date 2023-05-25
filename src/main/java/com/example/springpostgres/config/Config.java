@@ -1,5 +1,8 @@
 package com.example.springpostgres.config;
 
+import com.example.springpostgres.model.Account;
+import com.example.springpostgres.model.Client;
+import com.example.springpostgres.repository.AccountRepository;
 import com.example.springpostgres.repository.ClientRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -13,25 +16,24 @@ public class Config {
 
     private String[] names = { "Alice", "Bob", "Charlie", "David", "Emma",
             "Frank", "Grace", "Henry", "Ivy", "Jack" };
-    private String[] surnames = { "Smith", "Johnson", "Williams", "Brown", "Jones",
+    private String[] surnames = { "Smith", "Johnson", null, "Williams", "Brown", "Jones",
             "Miller", "Davis", "Garcia", "Wilson", "Anderson" };
 
     @Bean
-    CommandLineRunner commandLineRunner(ClientRepository clientRepository){
+    CommandLineRunner commandLineRunner(ClientRepository clientRepository, AccountRepository accountRepository){
         return args -> {
             Random r = new Random();
-            for (int i = 0; i < 10; i++) {
+            Client client;
+            for (int i = 0; i < 30; i++) {
                 String name = names[r.nextInt(names.length)];
                 String surname = surnames[r.nextInt(surnames.length)];
                 String dni = generateRandomDNI();
-                String email = generateRandomEmail();
+                String email = generateRandomEmail(name, surname); //comprobar que no este repetido (debido a la aleatoriedad)
                 String birth = generateRandomBirthDate();
-                //clientRepository.save(new Client(name, surname, dni, email, birth));
+                client = new Client(name, surname, dni, email, birth);
+                clientRepository.save(client);
+                //accountRepository.save(new Account(15000, client));
             }
-
-            /*for (int i = 1; i <= 10; i++) {
-                accountRepository.save(new Account(r.nextDouble(0, 100000)));
-            }*/
         };
     }
 
@@ -45,14 +47,14 @@ public class Config {
         return String.valueOf(LocalDate.of(year, month, day));
     }
 
-    private String generateRandomEmail() {
+    private String generateRandomEmail(String name, String surname) {
         String[] domains = { "gmail.com", "yahoo.com", "hotmail.com", "outlook.com", "example.com" };
-
         Random r = new Random();
 
-        return names[r.nextInt(names.length)].toLowerCase() +
-                "." + surnames[r.nextInt(surnames.length)].toLowerCase() +
-                "@" + domains[r.nextInt(domains.length)];
+        if(surname == null)
+            return name.toLowerCase() + "." + "@" + domains[r.nextInt(domains.length)];
+
+        return name.toLowerCase() + "." + surname.toLowerCase() + "@" + domains[r.nextInt(domains.length)];
     }
 
     private String generateRandomDNI() {

@@ -67,9 +67,10 @@ public class Account {
         //this.creationDate = LocalDate.now();
     }
 
-    public Account(double balance) {
+    public Account(double balance, Client client) {
         this.balance = balance;
         this.creationDate = LocalDate.now();
+        this.client = client;
     }
 
     /*Getters&Setters*/

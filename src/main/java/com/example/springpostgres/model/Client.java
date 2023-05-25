@@ -96,7 +96,6 @@ public class Client {
     /*Constructors*/
 
     public Client() {
-
     }
 
     public Client(String name, String surnames, String dni, String email, String birth) {
@@ -112,7 +111,6 @@ public class Client {
     public Long getIdClient() {
         return idClient;
     }
-
 
     public String getName() {
         return name;
