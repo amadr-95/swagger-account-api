@@ -103,21 +103,37 @@ public class AccountController {
         accountService.deleteAll();
         return new ResponseEntity<>("All accounts deleted",HttpStatus.OK);
     }
+
     @Operation(
-            summary = "Update email and/or username from an Account"
+            summary = "Update username from an Account"
     )
-    @PutMapping("/update/{id}")
-    public ResponseEntity<String> updateAccount(
+    @PutMapping("/update/username/{id}")
+    public ResponseEntity<String> updateUsername(
             @PathVariable("id") Long id,
-            @RequestParam(required = false) String username,
-            @RequestParam(required = false) String email
-    ){
+            @RequestParam String username)
+    {
         try{
-            accountService.updateById(id,username,email);
+            accountService.updateUsernameById(id,username);
         }catch (IllegalArgumentException e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>("Account updated", HttpStatus.OK);
+        return new ResponseEntity<>("Username updated", HttpStatus.OK);
+    }
+
+    @Operation(
+            summary = "Update email from an Account"
+    )
+    @PutMapping("/update/email/{id}")
+    public ResponseEntity<String> updateEmail(
+            @PathVariable("id") Long id,
+            @RequestParam String email)
+    {
+        try{
+            accountService.updateEmailById(id,email);
+        }catch (IllegalArgumentException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>("Email updated", HttpStatus.OK);
     }
 
 }

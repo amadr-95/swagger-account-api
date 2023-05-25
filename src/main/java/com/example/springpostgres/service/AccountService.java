@@ -90,27 +90,42 @@ public class AccountService {
 
     //UPDATE
     @Transactional
-    public void updateById(Long id, String username, String email){
-        //comprobamos si existe la cuenta con el id
+    public void updateUsernameById(Long id, String username){
         if (accountRepository.findById(id).isEmpty())
-            throw new IllegalArgumentException("user with id "+id+" does not exist");
-        //Si no lo encuentra deberia devolver una excepcion personalizada
-        //CuentaNotFoundException
-        Account account = accountRepository.findById(id).get(); //rescatamos la cuenta para editar
-        //validamos los parametros
+            throw new IllegalArgumentException("user with id " + id + " does not exist");
+            //Si no lo encuentra deberia devolver una excepcion personalizada
+            //CuentaNotFoundException
+        Account account = accountRepository.findById(id).get();
+
+        if (username == null || username.isEmpty() || username.contains(" ")
+                || username.equalsIgnoreCase(account.getUsername())) {
+            throw new IllegalArgumentException("invalid username");
+            //Deberia lanzar una excepcion personalizada UserOrEmailException
+        }
         if(accountRepository.findByUsername(username).isPresent())
             throw new IllegalArgumentException("username taken");
         //Deberia lanzar una excepcion personalizada UserOrEmailTakenException
-        if(username != null && !username.isEmpty() && !username.equalsIgnoreCase(account.getUsername()))
-            account.setUsername(username);
-        else
-            throw new IllegalArgumentException("invalid username");
+        account.setUsername(username);
+    }
 
-        if(accountRepository.findByEmail(email).isPresent())
+    //UPDATE
+    @Transactional
+    public void updateEmailById(Long id, String email){
+        if (accountRepository.findById(id).isEmpty())
+            throw new IllegalArgumentException("user with id " + id + " does not exist");
+        //Si no lo encuentra deberia devolver una excepcion personalizada
+        //CuentaNotFoundException
+        Account account = accountRepository.findById(id).get();
+
+        if (email == null || !email.contains("@") || email.contains(" ")
+        || email.equalsIgnoreCase(account.getUsername())) {
+            throw new IllegalArgumentException("invalid email");
+            //Deberia lanzar una excepcion personalizada UserOrEmailException
+        }
+        if(accountRepository.findByUsername(email).isPresent())
             throw new IllegalArgumentException("email taken");
         //Deberia lanzar una excepcion personalizada UserOrEmailTakenException
-        if(email != null && email.contains("@") && !email.equalsIgnoreCase(account.getEmail()))
-            account.setEmail(email);
+        account.setEmail(email);
     }
 
 }
