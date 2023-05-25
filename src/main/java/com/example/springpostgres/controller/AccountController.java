@@ -75,39 +75,39 @@ public class AccountController {
             summary = "Add a new Account"
     )
     @PostMapping
-    public ResponseEntity<HttpStatus> addAccount(@RequestBody Account account){
+    public ResponseEntity<String> addAccount(@RequestBody Account account){
         try{
             accountService.addAccount(account);
         }catch (IllegalArgumentException e){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>("Account succesfully created", HttpStatus.CREATED);
     }
     @Operation(
             summary = "Delete an Account by id"
     )
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<HttpStatus> deleteById(@PathVariable("id") Long id){
+    public ResponseEntity<String> deleteById(@PathVariable("id") Long id){
         try {
             accountService.deleteById(id);
         }catch(IllegalArgumentException e){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>("Account succesfully deleted", HttpStatus.OK);
     }
     @Operation(
             summary = "Delete all Accounts"
     )
     @DeleteMapping("/delete")
-    public ResponseEntity<HttpStatus> deleteAll(){
+    public ResponseEntity<String> deleteAll(){
         accountService.deleteAll();
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>("All accounts deleted",HttpStatus.OK);
     }
     @Operation(
             summary = "Update email and/or username from an Account"
     )
     @PutMapping("/update/{id}")
-    public ResponseEntity<HttpStatus> updateAccount(
+    public ResponseEntity<String> updateAccount(
             @PathVariable("id") Long id,
             @RequestParam(required = false) String username,
             @RequestParam(required = false) String email
@@ -115,9 +115,9 @@ public class AccountController {
         try{
             accountService.updateById(id,username,email);
         }catch (IllegalArgumentException e){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>("Account updated", HttpStatus.OK);
     }
 
 }

@@ -103,6 +103,8 @@ public class AccountService {
         //Deberia lanzar una excepcion personalizada UserOrEmailTakenException
         if(username != null && !username.isEmpty() && !username.equalsIgnoreCase(account.getUsername()))
             account.setUsername(username);
+        else
+            throw new IllegalArgumentException("invalid username");
 
         if(accountRepository.findByEmail(email).isPresent())
             throw new IllegalArgumentException("email taken");
