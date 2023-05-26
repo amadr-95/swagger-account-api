@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.List;
+
 @Configuration
 public class OpenApiConfig {
 
@@ -17,9 +19,9 @@ public class OpenApiConfig {
 
     @Bean
     public OpenAPI getOpenApi(){
-        /*Server devServer = new Server();
+        Server devServer = new Server();
         devServer.setUrl(devUrl);
-        devServer.description("Server URL in Development environment");*/
+        devServer.description("Server URL in Development environment");
 
         Contact contact = new Contact();
         contact.setEmail("asabido@viavansi.com");
@@ -33,7 +35,7 @@ public class OpenApiConfig {
                 .contact(contact)
                 .description("This API exposes endpoints to manage user accounts")
                 .license(mitLicense);
-        return new OpenAPI().info(info);
+        return new OpenAPI().info(info).servers(List.of(devServer));
     }
 
 }
