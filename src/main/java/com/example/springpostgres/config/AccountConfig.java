@@ -17,7 +17,7 @@ public class AccountConfig {
     CommandLineRunner commandLineRunner(AccountRepository accountRepository){
         return args -> {
             Random r = new Random();
-            for (int i = 1; i <= 20; i++) {
+            for (int i = 1; i <= 30; i++) {
                 String name = names[r.nextInt(names.length)];
                 String username = name.toLowerCase() + "." + i;
                 String email = username + "@" + domains[r.nextInt(domains.length)];

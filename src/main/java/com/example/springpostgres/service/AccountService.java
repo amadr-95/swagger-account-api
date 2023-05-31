@@ -13,7 +13,6 @@ import java.util.Optional;
 @Service
 public class AccountService {
 
-
     private final AccountRepository accountRepository;
 
     @Autowired
@@ -23,12 +22,11 @@ public class AccountService {
 
     //GET
     public List<Account> findAll(String name){
-        if (name == null || name.isEmpty())
+        if (name == null || name.isEmpty() || name.contains(" "))
             return accountRepository.findAll();
         else{
             return accountRepository.findByName(name);
         }
-
     }
 
     public Optional<Account> findById(Long id){
