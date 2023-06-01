@@ -1,7 +1,5 @@
 package com.example.spring.account;
 
-import com.example.spring.account.Account;
-import com.example.spring.account.AccountRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

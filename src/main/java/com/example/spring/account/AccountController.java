@@ -1,7 +1,5 @@
 package com.example.spring.account;
 
-import com.example.spring.account.Account;
-import com.example.spring.account.AccountService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;

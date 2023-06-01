@@ -1,7 +1,5 @@
 package com.example.spring.account;
 
-import com.example.spring.account.AccountRepository;
-import com.example.spring.account.Account;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
