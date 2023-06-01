@@ -36,7 +36,7 @@ public class AccountController {
         return new ResponseEntity<>(accountService.findAll(name), HttpStatus.OK);
     }
     @Operation(
-            summary = "Retrieve an Accounts by id"
+            summary = "Retrieve an Account by id"
     )
     @GetMapping("/filter/id")
     public ResponseEntity<Optional<Account>> findById(@RequestParam Long id){
@@ -63,7 +63,7 @@ public class AccountController {
         return new ResponseEntity<>(accountService.findByEmail(email), HttpStatus.OK);
     }
     @Operation(
-            summary = "Retrieve Accounts by email domain"
+            summary = "Retrieve all Accounts that match with email domain"
     )
     @GetMapping("/filter/domain")
     public ResponseEntity<List<Account>> findByEmailContainsDomain(@RequestParam String domain){

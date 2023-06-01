@@ -77,7 +77,7 @@ public class AccountService {
     public void deleteById(Long id){
         if (accountRepository.findById(id).isEmpty())
             throw new IllegalArgumentException("user with id "+id+" does not exist");
-            //Si no lo encuentra deberia devolver una excepcion personalizada
+            //Si no lo encuentra deberia lanzar una excepcion personalizada
             //CuentaNotFoundException
         accountRepository.deleteById(id);
     }
@@ -111,7 +111,7 @@ public class AccountService {
     public void updateEmailById(Long id, String email){
         if (accountRepository.findById(id).isEmpty())
             throw new IllegalArgumentException("user with id " + id + " does not exist");
-        //Si no lo encuentra deberia devolver una excepcion personalizada
+        //Si no lo encuentra deberia lanzar una excepcion personalizada
         //CuentaNotFoundException
         Account account = accountRepository.findById(id).get();
 

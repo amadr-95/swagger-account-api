@@ -9,15 +9,12 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>spring-postgres</artifactId>
+	<artifactId>spring-boot-jpa-postgresql</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>spring-postgres</name>
-	<description>
-		Building a Spring Boot Rest CRUD API example with Maven that use Spring Data JPA/Hibernate to interact with PostgreSQL database.
-		Also, we are going to document the REST API with Swagger 3 annotations.
-	</description>
+	<name>spring-boot-jpa-postgresql</name>
+	<description>Spring Boot, PostgreSQL example with Maven, Spring JPA</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 
@@ -68,14 +65,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>
