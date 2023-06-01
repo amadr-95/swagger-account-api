@@ -1,7 +1,7 @@
-package com.example.springpostgres.service;
+package com.example.spring.account;
 
-import com.example.springpostgres.repository.AccountRepository;
-import com.example.springpostgres.model.Account;
+import com.example.spring.account.AccountRepository;
+import com.example.spring.account.Account;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

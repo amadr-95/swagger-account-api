@@ -1,4 +1,4 @@
-package com.example.springpostgres;
+package com.example.spring;
 
 import org.springframework.boot.test.context.SpringBootTest;
 

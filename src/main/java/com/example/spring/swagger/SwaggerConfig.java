@@ -1,4 +1,4 @@
-package com.example.springpostgres.config;
+package com.example.spring.swagger;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import java.util.List;
 
 @Configuration
-public class OpenApiConfig {
+public class SwaggerConfig {
 
     @Value("${openapi.dev-url}")
     private String devUrl;

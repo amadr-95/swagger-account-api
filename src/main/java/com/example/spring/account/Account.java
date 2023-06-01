@@ -1,5 +1,5 @@
 
-package com.example.springpostgres.model;
+package com.example.spring.account;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
