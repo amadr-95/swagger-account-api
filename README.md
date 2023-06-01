@@ -2,7 +2,7 @@
 Se implementa una relación 1:N con JPA/Hibernate entre las tablas **Client**
 y **Account** como sigue:
 
-![model](src/main/resources/images/modelo_datos.png)
+![model](src/main/resources/images/model.png)
 
 Operaciones CRUD:
 

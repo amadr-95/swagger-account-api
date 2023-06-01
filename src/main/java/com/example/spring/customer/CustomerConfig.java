@@ -1,9 +1,6 @@
-package com.example.springpostgres.config;
+package com.example.spring.customer;
 
-import com.example.springpostgres.model.Account;
-import com.example.springpostgres.model.Client;
-import com.example.springpostgres.repository.AccountRepository;
-import com.example.springpostgres.repository.ClientRepository;
+import com.example.spring.account.AccountRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +9,7 @@ import java.time.LocalDate;
 import java.util.Random;
 
 @Configuration
-public class Config {
+public class CustomerConfig {
 
     private String[] names = { "Alice", "Bob", "Charlie", "David", "Emma",
             "Frank", "Grace", "Henry", "Ivy", "Jack" };
@@ -20,19 +17,19 @@ public class Config {
             "Miller", "Davis", "Garcia", "Wilson", "Anderson" };
 
     @Bean
-    CommandLineRunner commandLineRunner(ClientRepository clientRepository, AccountRepository accountRepository){
+    CommandLineRunner commandLineRunner(CustomerRepository customerRepository, AccountRepository accountRepository){
         return args -> {
             Random r = new Random();
-            Client client;
+            Customer customer;
             for (int i = 0; i < 30; i++) {
                 String name = names[r.nextInt(names.length)];
                 String surname = surnames[r.nextInt(surnames.length)];
                 String dni = generateRandomDNI();
                 String email = generateRandomEmail(name, surname); //comprobar que no este repetido (debido a la aleatoriedad)
                 String birth = generateRandomBirthDate();
-                client = new Client(name, surname, dni, email, birth);
-                clientRepository.save(client);
-                //accountRepository.save(new Account(15000, client));
+                customer = new Customer(name, surname, dni, email, birth);
+                customerRepository.save(customer);
+                //accountRepository.save(new Account(15000, customer));
             }
         };
     }

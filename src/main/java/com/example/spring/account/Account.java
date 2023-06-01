@@ -1,6 +1,7 @@
 
-package com.example.springpostgres.model;
+package com.example.spring.account;
 
+import com.example.spring.customer.Customer;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -52,14 +53,14 @@ public class Account {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
-            name = "idClient", //crea la columna idClient en la tabla Account que relaciona cliente-cuenta
+            name = "idCustomer", //crea la columna idCustomer en la tabla Account que relaciona customer-account
             nullable = false,
             updatable = false,
             foreignKey = @ForeignKey(
-                    name = "client_id_fk"
+                    name = "customer_id_fk"
             )
     )
-    private Client client;
+    private Customer customer;
 
     /*Constructors*/
 
@@ -67,10 +68,10 @@ public class Account {
         //this.creationDate = LocalDate.now();
     }
 
-    public Account(double balance, Client client) {
+    public Account(double balance, Customer customer) {
         this.balance = balance;
         this.creationDate = LocalDate.now();
-        this.client = client;
+        this.customer = customer;
     }
 
     /*Getters&Setters*/
@@ -95,12 +96,12 @@ public class Account {
         this.creationDate = LocalDate.now();
     }
 
-    public Client getClient() {
-        return client;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     @Override

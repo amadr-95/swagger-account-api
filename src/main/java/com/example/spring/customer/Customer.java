@@ -1,5 +1,6 @@
-package com.example.springpostgres.model;
+package com.example.spring.customer;
 
+import com.example.spring.account.Account;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,32 +15,31 @@ import jakarta.persistence.UniqueConstraint;
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(
-        name = "Client",
+        name = "Customer",
         uniqueConstraints = {
                 @UniqueConstraint(
-                        name = "client_dni_unique",
+                        name = "customer_dni_unique",
                         columnNames = "DNI"
                 ),
                 @UniqueConstraint(
-                        name = "client_email_unique",
+                        name = "customer_email_unique",
                         columnNames = "email"
                 )
         }
 )
-public class Client {
+public class Customer {
     @Id
     @SequenceGenerator(
-            name = "client_sequence",
-            sequenceName = "client_sequence",
+            name = "customer_sequence",
+            sequenceName = "customer_sequence",
             allocationSize = 1
     )
     @GeneratedValue(
-            generator = "client_sequence",
+            generator = "customer_sequence",
             strategy = SEQUENCE
     )
     @Column(
@@ -85,7 +85,7 @@ public class Client {
 
     @OneToMany(
             fetch = FetchType.LAZY,
-            mappedBy = "client", //mismo nombre que el de la propiedad de tipo Client definida en la clase Account
+            mappedBy = "customer", //mismo nombre que el de la propiedad de tipo Customer definida en la clase Account
             cascade = CascadeType.ALL //esto hace que cuando se persista un cliente, tambien lo hagan sus entidades hijas (cuentas)
     )
     /*Esta propiedad no es un campo de la BBDD (entre otras cosas porque no se puede
@@ -95,10 +95,10 @@ public class Client {
 
     /*Constructors*/
 
-    public Client() {
+    public Customer() {
     }
 
-    public Client(String name, String surnames, String dni, String email, String birth) {
+    public Customer(String name, String surnames, String dni, String email, String birth) {
         this.name = name;
         this.surnames = surnames;
         this.dni = dni;
@@ -166,7 +166,7 @@ public class Client {
 
     @Override
     public String toString() {
-        return "Client{" +
+        return "Customer{" +
                 "idClient=" + idClient +
                 ", name='" + name + '\'' +
                 ", surnames='" + surnames + '\'' +
