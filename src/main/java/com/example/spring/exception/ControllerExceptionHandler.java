@@ -10,13 +10,28 @@ import java.util.Date;
 
 @ControllerAdvice
 public class ControllerExceptionHandler {
+
+    private ErrorMessage message;
+
     @ExceptionHandler(AccountNotFoundException.class)
-    public ResponseEntity<ErrorMessage> accountNotFoundException(AccountNotFoundException ex, WebRequest request){
+    public ResponseEntity<ErrorMessage> accountNotFoundExceptionHandler(AccountNotFoundException ex, WebRequest request){
         HttpStatus status = HttpStatus.NOT_FOUND;
         if (ex instanceof UserOrEmailException || ex instanceof UserOrEmailTaken)
             status = HttpStatus.BAD_REQUEST;
 
-        ErrorMessage message = new ErrorMessage(
+        message = new ErrorMessage(
+                status.value(),
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(false));
+
+        return new ResponseEntity<>(message, status);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorMessage> globalExceptionHandler(Exception ex, WebRequest request){
+        HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+        message = new ErrorMessage(
                 status.value(),
                 new Date(),
                 ex.getMessage(),
