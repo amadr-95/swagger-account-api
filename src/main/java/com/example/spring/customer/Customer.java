@@ -38,10 +38,10 @@ public class Customer {
             strategy = SEQUENCE
     )
     @Column(
-            name = "idClient",
+            name = "idCustomer",
             updatable = false
     )
-    private Long idClient;
+    private Long idCustomer;
 
     @Column(
             name = "name",
@@ -93,8 +93,8 @@ public class Customer {
 
     /*Getters&Setters*/
 
-    public Long getIdClient() {
-        return idClient;
+    public Long getIdCustomer() {
+        return idCustomer;
     }
 
     public String getName() {
@@ -140,7 +140,7 @@ public class Customer {
     @Override
     public String toString() {
         return "Customer{" +
-                "idClient=" + idClient +
+                "idCustomer=" + idCustomer +
                 ", name='" + name + '\'' +
                 ", surnames='" + surnames + '\'' +
                 ", dni='" + dni + '\'' +

@@ -1,13 +1,20 @@
 package com.example.spring.customer;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
+@Tag(
+        name = "Customers",
+        description = "Bank Customers management"
+)
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/customers")
 public class CustomerController {
 
     private final CustomerService customerService;
@@ -18,22 +25,18 @@ public class CustomerController {
     }
 
     //GET
-    @GetMapping("/clients")
-    public List<Customer> findAll(){
-        return customerService.findAll();
+    @Operation(summary = "Retrieve all Customers or the filter ones by name")
+    @GetMapping
+    public ResponseEntity<List<Customer>> findAll(@RequestParam(required = false) String name){
+        if(customerService.findAll(name).isEmpty())
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(customerService.findAll(name), HttpStatus.OK);
     }
 
-    /*@GetMapping("/clients/{id}")
-    public Customer findById(@PathVariable Long id) throws CustomerNotFoundException {
-        if(customerService.findById(id).isEmpty())
-            throw new CustomerNotFoundException("Customer with id "+id+" not found");
-        else
-            return customerService.findById(id).get();
-    }*/
-
-    //POST
-    @PostMapping("/clients")
-    public void createClient(@RequestBody Customer customer){
-        customerService.createClient(customer);
+    @Operation(summary = "Retrieve a Customer by id")
+    @GetMapping("/filter/id")
+    public ResponseEntity<Customer> findById(@RequestParam Long id) {
+        return new ResponseEntity<>(customerService.findById(id), HttpStatus.OK);
     }
+
 }

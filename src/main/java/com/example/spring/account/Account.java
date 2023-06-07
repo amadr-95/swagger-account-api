@@ -113,6 +113,7 @@ public class Account {
                 "idAccount=" + idAccount +
                 ", balance=" + balance +
                 ", creationDate=" + creationDate +
+                ", customer=" + customer.getIdCustomer() +
                 '}';
     }
 }
