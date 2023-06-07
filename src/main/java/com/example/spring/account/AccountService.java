@@ -30,5 +30,10 @@ public class AccountService {
         return accountRepository.findByCustomerId(idCustomer);
     }*/
 
+    public Account findById(Long idAccount){
+        return accountRepository.findById(idAccount)
+                .orElseThrow(() -> new ResourceNotFoundException("Does not exist an Account with id "+idAccount));
+    }
+
 
 }
