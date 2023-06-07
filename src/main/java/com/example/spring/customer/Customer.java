@@ -1,13 +1,9 @@
 package com.example.spring.customer;
 
-import com.example.spring.account.Account;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
@@ -15,7 +11,6 @@ import jakarta.persistence.UniqueConstraint;
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Table(
@@ -83,16 +78,6 @@ public class Customer {
     )
     private LocalDate birth;
 
-    @OneToMany(
-            fetch = FetchType.LAZY,
-            mappedBy = "customer", //mismo nombre que el de la propiedad de tipo Customer definida en la clase Account
-            cascade = CascadeType.ALL //esto hace que cuando se persista un cliente, tambien lo hagan sus entidades hijas (cuentas)
-    )
-    /*Esta propiedad no es un campo de la BBDD (entre otras cosas porque no se puede
-    guardar una lista en una BBDD relacional), pero si podremos acceder a la lista de cuentas
-    de cada cliente mediantes consultas*/
-    private List<Account> accounts;
-
     /*Constructors*/
 
     public Customer() {
@@ -152,25 +137,13 @@ public class Customer {
         this.birth = LocalDate.parse(birth);
     }
 
-    public List<Account> getAccounts() {
-        return accounts;
-    }
-
-    public void setAccounts(List<Account> accounts) {
-        this.accounts = accounts;
-    }
-
-    public void addAccount(Account account){
-        this.accounts.add(account);
-    }
-
     @Override
     public String toString() {
         return "Customer{" +
                 "idClient=" + idClient +
                 ", name='" + name + '\'' +
                 ", surnames='" + surnames + '\'' +
-                ", DNI='" + dni + '\'' +
+                ", dni='" + dni + '\'' +
                 ", email='" + email + '\'' +
                 ", birth=" + birth +
                 '}';

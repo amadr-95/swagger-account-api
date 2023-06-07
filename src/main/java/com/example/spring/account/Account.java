@@ -2,6 +2,7 @@
 package com.example.spring.account;
 
 import com.example.spring.customer.Customer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -12,7 +13,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import org.hibernate.annotations.OnDelete;
 
+import static org.hibernate.annotations.OnDeleteAction.CASCADE;
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
 import java.time.LocalDate;
@@ -51,21 +54,21 @@ public class Account {
     )
     private LocalDate creationDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(
             name = "idCustomer", //crea la columna idCustomer en la tabla Account que relaciona customer-account
             nullable = false,
             updatable = false,
-            foreignKey = @ForeignKey(
-                    name = "customer_id_fk"
-            )
+            foreignKey = @ForeignKey(name = "customer_id_fk")
     )
+    @OnDelete(action = CASCADE)
+    @JsonIgnore
     private Customer customer;
 
     /*Constructors*/
 
     public Account() {
-        //this.creationDate = LocalDate.now();
+        this.creationDate = LocalDate.now();
     }
 
     public Account(double balance, Customer customer) {
@@ -92,8 +95,8 @@ public class Account {
         return creationDate;
     }
 
-    public void setCreationDate() {
-        this.creationDate = LocalDate.now();
+    public void setCreationDate(String date) {
+        this.creationDate = LocalDate.parse(date);
     }
 
     public Customer getCustomer() {
