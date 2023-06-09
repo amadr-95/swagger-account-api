@@ -16,7 +16,7 @@ import java.util.List;
         description = "Bank Accounts management"
 )
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/accounts")
 public class AccountController {
 
     private final AccountService accountService;
@@ -30,7 +30,7 @@ public class AccountController {
 
     //GET
     @Operation(summary = "Retrieve all Accounts")
-    @GetMapping("/accounts")
+    @GetMapping
     public ResponseEntity<List<Account>> findAll(){
         if(accountService.findAll().isEmpty())
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -38,14 +38,22 @@ public class AccountController {
     }
 
     @Operation(summary = "Retrieve all Accounts from a Customer")
-    @GetMapping("/customer/{id}/accounts")
+    @GetMapping("/customer/{id}")
     public ResponseEntity<List<Account>> findAllAccountsByCustomerId(@PathVariable Long id){
+        if(accountService.findAllAccountsByCustomerId(id).isEmpty())
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         return new ResponseEntity<>(accountService.findAllAccountsByCustomerId(id), HttpStatus.OK);
     }
 
     @Operation(summary = "Retrieve an Account by id")
-    @GetMapping("/accounts/filter/id")
-    public ResponseEntity<Account> findById(@RequestParam Long id){
+    @GetMapping("/{id}")
+    public ResponseEntity<Account> findById(@PathVariable Long id){
         return new ResponseEntity<>(accountService.findById(id), HttpStatus.OK);
+    }
+
+    //POST
+    @PostMapping("/new/customer/{id}")
+    public ResponseEntity<Account> addNewAccountToACustomer(@RequestBody Account account, @PathVariable Long id){
+        return new ResponseEntity<>(accountService.addNewAccountToACustomer(id, account), HttpStatus.OK);
     }
 }

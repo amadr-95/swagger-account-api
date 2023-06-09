@@ -11,7 +11,7 @@ import java.util.List;
 public interface AccountRepository extends JpaRepository<Account, Long> {
 
     /*@Query(
-            value = "SELECT * FROM Account WHERE id_customer = :idCustomer",
+            value = "SELECT * FROM Account WHERE id_customer = :id",
             nativeQuery = true
     )*/
     List<Account> findAllAccountsByCustomerId(Long id);

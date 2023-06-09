@@ -5,10 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -37,9 +34,16 @@ public class CustomerController {
     }
 
     @Operation(summary = "Retrieve a Customer by id")
-    @GetMapping("/filter/id")
-    public ResponseEntity<Customer> findById(@RequestParam Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<Customer> findById(@PathVariable Long id) {
         return new ResponseEntity<>(customerService.findById(id), HttpStatus.OK);
+    }
+
+    //POST
+    @Operation(summary = "Add new Customer")
+    @PostMapping("/new")
+    public ResponseEntity<Customer> addNewCustomer(@RequestBody Customer customer){
+        return new ResponseEntity<>(customerService.addNewCustomer(customer), HttpStatus.OK);
     }
 
 }
