@@ -40,7 +40,7 @@ public class DataLoad {
                 customerRepository.save(customer);
             }
 
-            for (i = 0; i < 30; i++) {
+            for (i = 0; i < 50; i++) {
                 Customer randomCustomer = customers.get(r.nextInt(customers.size()));
                 BigDecimal balance = new BigDecimal(r.nextDouble() * 100000).setScale(2, BigDecimal.ROUND_HALF_UP);
                 accountRepository.save(new Account(balance.doubleValue(), randomCustomer));

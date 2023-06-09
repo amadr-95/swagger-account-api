@@ -37,11 +37,11 @@ public class AccountController {
         else return new ResponseEntity<>(accountService.findAll(), HttpStatus.OK);
     }
 
-    /*@Operation(summary = "Retrieve all Accounts from a Customer")
+    @Operation(summary = "Retrieve all Accounts from a Customer")
     @GetMapping("/customer/{idCustomer}/accounts")
     public ResponseEntity<List<Account>> findAllAccountsByCustomerId(@PathVariable Long idCustomer){
         return new ResponseEntity<>(accountService.findAllAccountsByCustomerId(idCustomer), HttpStatus.OK);
-    }*/
+    }
 
     @Operation(summary = "Retrieve an Account by id")
     @GetMapping("/accounts/filter/id")

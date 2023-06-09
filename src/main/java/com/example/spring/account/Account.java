@@ -3,6 +3,7 @@ package com.example.spring.account;
 
 import com.example.spring.customer.Customer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -54,7 +55,7 @@ public class Account {
     )
     private LocalDate creationDate;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false) //FetchType.LAZY + @JsonIgnore -> dont show customer propertie in the response
     @JoinColumn(
             name = "idCustomer", //crea la columna idCustomer en la tabla Account que relaciona customer-account
             nullable = false,
@@ -63,6 +64,7 @@ public class Account {
     )
     @OnDelete(action = CASCADE)
     @JsonIgnore
+    //@JsonIgnoreProperties(value = {"Account", "hibernateLazyInitializer"})
     private Customer customer;
 
     /*Constructors*/
@@ -113,7 +115,7 @@ public class Account {
                 "idAccount=" + idAccount +
                 ", balance=" + balance +
                 ", creationDate=" + creationDate +
-                ", customer=" + customer.getIdCustomer() +
+                ", customer=" + customer +
                 '}';
     }
 }
