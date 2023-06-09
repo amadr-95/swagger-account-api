@@ -46,4 +46,11 @@ public class CustomerController {
         return new ResponseEntity<>(customerService.addNewCustomer(customer), HttpStatus.OK);
     }
 
+    //PUT
+    @Operation(summary = "Update email from a Customer")
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<Customer> updateCustomerEmail(@PathVariable Long id, @RequestParam String email){
+        return new ResponseEntity<>(customerService.updateCustomerEmail(id, email), HttpStatus.OK);
+    }
+
 }

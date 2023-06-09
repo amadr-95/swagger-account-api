@@ -1,8 +1,9 @@
 package com.example.spring.customer;
 
-import com.example.spring.exception.CustomerDniAlreadyExists;
-import com.example.spring.exception.CustomerEmailAlreadyExists;
+import com.example.spring.exception.ResourceInvalidException;
 import com.example.spring.exception.ResourceNotFoundException;
+import com.example.spring.exception.ResourceTakenException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,11 +35,24 @@ public class CustomerService {
     //POST
     public Customer addNewCustomer(Customer customer){
         if(customerRepository.findByDni(customer.getDni()).isPresent()) {
-            throw new CustomerDniAlreadyExists("DNI '" +customer.getDni() + "' already exists");
+            throw new ResourceTakenException("DNI '" +customer.getDni() + "' already exists");
         }else if(customerRepository.findByEmail(customer.getEmail()).isPresent()) {
-            throw new CustomerEmailAlreadyExists("Email '" + customer.getEmail() + "' already exists");
+            throw new ResourceTakenException("Email '" + customer.getEmail() + "' already exists");
         }
         return customerRepository.save(customer);
+    }
+
+    //PUT
+    @Transactional
+    public Customer updateCustomerEmail(Long id, String email){
+        Customer customer = findById(id);
+        if(email.isEmpty() || !email.contains("@"))
+            throw new ResourceInvalidException("Error: '@' is missing");
+        if(customerRepository.findByEmail(email).isPresent()){
+            throw new ResourceTakenException("Email '"+email+"' is already in use");
+        }
+        customer.setEmail(email);
+        return customer;
     }
 
 }

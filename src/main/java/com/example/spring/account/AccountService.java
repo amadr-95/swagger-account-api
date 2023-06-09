@@ -2,10 +2,13 @@ package com.example.spring.account;
 
 import com.example.spring.customer.Customer;
 import com.example.spring.customer.CustomerRepository;
+import com.example.spring.exception.ResourceInvalidException;
 import com.example.spring.exception.ResourceNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,6 +57,24 @@ public class AccountService {
             accList.add(new Account(a.getBalance(), customer));
         }
         return accountRepository.saveAll(accList);
+    }
+
+    //PUT
+    @Transactional
+    public Account updateAccountBalance(Long id, BigDecimal balance){
+        Account account = findById(id);
+        if(balance.doubleValue() < 0)
+            throw new ResourceInvalidException("Balance can not be negative");
+        account.setBalance(balance.doubleValue());
+        return account;
+    }
+
+    @Transactional
+    public Account addQuantityToAnAccount(Long id, BigDecimal quantity){
+        Account account = findById(id);
+        //TO DO
+
+        return account;
     }
 
 

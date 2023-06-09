@@ -22,8 +22,8 @@ public class ControllerExceptionHandler {
         return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(ResourceTakenExeption.class)
-    public ResponseEntity<ErrorMessage> resourceTakenExceptionHandler(ResourceTakenExeption ex, WebRequest request){
+    @ExceptionHandler(ResourceInvalidException.class)
+    public ResponseEntity<ErrorMessage> resourceTInvalidExceptionHandler(ResourceInvalidException ex, WebRequest request){
         ErrorMessage message = new ErrorMessage(
                 HttpStatus.BAD_REQUEST.value(),
                 new Date(),

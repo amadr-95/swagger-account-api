@@ -1,6 +1,7 @@
 package com.example.spring.account;
 
 
+import com.example.spring.customer.Customer;
 import com.example.spring.customer.CustomerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Tag(
@@ -63,4 +65,12 @@ public class AccountController {
     public ResponseEntity<List<Account>> addNewListAccountsToACustomer(@RequestBody List<Account> accounts, @PathVariable Long id){
         return new ResponseEntity<>(accountService.addNewListAccountsToACustomer(id, accounts), HttpStatus.OK);
     }
+
+    //PUT
+    @Operation(summary = "Update balance from an Account")
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<Account> updateAccountBalance(@PathVariable Long id, @RequestParam BigDecimal balance){
+        return new ResponseEntity<>(accountService.updateAccountBalance(id, balance), HttpStatus.OK);
+    }
+
 }
