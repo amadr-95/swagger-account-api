@@ -10,9 +10,9 @@ import java.util.List;
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long> {
 
-    @Query(
+    /*@Query(
             value = "SELECT * FROM Account WHERE id_customer = :idCustomer",
             nativeQuery = true
-    )
-    List<Account> findByCustomerId(@Param("idCustomer") Long idCustomer);
+    )*/
+    List<Account> findAllAccountsByCustomerId(Long id);
 }

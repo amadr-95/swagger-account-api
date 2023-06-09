@@ -35,10 +35,10 @@ public class Account {
             generator = "account_sequence" //=sequenceName
     )
     @Column(
-            name = "idAccount",
+            name = "id",
             updatable = false
     )
-    private Long idAccount;
+    private Long id;
 
     @Column(
             name = "balance",
@@ -49,7 +49,7 @@ public class Account {
     private double balance;
 
     @Column(
-            name = "creationDate",
+            name = "creation_date",
             nullable = false,
             updatable = false
     )
@@ -57,7 +57,7 @@ public class Account {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false) //FetchType.LAZY + @JsonIgnore -> dont show customer propertie in the response
     @JoinColumn(
-            name = "idCustomer", //crea la columna idCustomer en la tabla Account que relaciona customer-account
+            name = "customer_id", //crea la columna customer_id en la tabla Account que relaciona customer-account
             nullable = false,
             updatable = false,
             foreignKey = @ForeignKey(name = "customer_id_fk")
@@ -81,8 +81,8 @@ public class Account {
 
     /*Getters&Setters*/
 
-    public Long getIdAccount() {
-        return idAccount;
+    public Long getId() {
+        return id;
     }
 
     public double getBalance() {
@@ -112,7 +112,7 @@ public class Account {
     @Override
     public String toString() {
         return "Account{" +
-                "idAccount=" + idAccount +
+                "id=" + id +
                 ", balance=" + balance +
                 ", creationDate=" + creationDate +
                 ", customer=" + customer +

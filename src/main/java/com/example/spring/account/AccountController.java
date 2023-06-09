@@ -38,14 +38,14 @@ public class AccountController {
     }
 
     @Operation(summary = "Retrieve all Accounts from a Customer")
-    @GetMapping("/customer/{idCustomer}/accounts")
-    public ResponseEntity<List<Account>> findAllAccountsByCustomerId(@PathVariable Long idCustomer){
-        return new ResponseEntity<>(accountService.findAllAccountsByCustomerId(idCustomer), HttpStatus.OK);
+    @GetMapping("/customer/{id}/accounts")
+    public ResponseEntity<List<Account>> findAllAccountsByCustomerId(@PathVariable Long id){
+        return new ResponseEntity<>(accountService.findAllAccountsByCustomerId(id), HttpStatus.OK);
     }
 
     @Operation(summary = "Retrieve an Account by id")
     @GetMapping("/accounts/filter/id")
-    public ResponseEntity<Account> findById(@RequestParam Long idAccount){
-        return new ResponseEntity<>(accountService.findById(idAccount), HttpStatus.OK);
+    public ResponseEntity<Account> findById(@RequestParam Long id){
+        return new ResponseEntity<>(accountService.findById(id), HttpStatus.OK);
     }
 }

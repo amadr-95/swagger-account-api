@@ -24,10 +24,10 @@ public class AccountService {
         return accountRepository.findAll();
     }
 
-    public List<Account> findAllAccountsByCustomerId(Long idCustomer){
-        if(!customerRepository.existsById(idCustomer))
-            throw new ResourceNotFoundException("Does not exist Customer with id "+idCustomer);
-        return accountRepository.findByCustomerId(idCustomer);
+    public List<Account> findAllAccountsByCustomerId(Long id){
+        if(!customerRepository.existsById(id))
+            throw new ResourceNotFoundException("Does not exist Customer with id "+id);
+        return accountRepository.findAllAccountsByCustomerId(id);
     }
 
     public Account findById(Long idAccount){
