@@ -52,8 +52,15 @@ public class AccountController {
     }
 
     //POST
+    /*@Operation(summary = "Add an Account to a Customer")
     @PostMapping("/new/customer/{id}")
     public ResponseEntity<Account> addNewAccountToACustomer(@RequestBody Account account, @PathVariable Long id){
         return new ResponseEntity<>(accountService.addNewAccountToACustomer(id, account), HttpStatus.OK);
+    }*/
+
+    @Operation(summary = "Add one or many Accounts to a Customer")
+    @PostMapping("/new/list/customer/{id}")
+    public ResponseEntity<List<Account>> addNewListAccountsToACustomer(@RequestBody List<Account> accounts, @PathVariable Long id){
+        return new ResponseEntity<>(accountService.addNewListAccountsToACustomer(id, accounts), HttpStatus.OK);
     }
 }

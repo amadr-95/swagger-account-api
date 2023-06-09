@@ -6,6 +6,7 @@ import com.example.spring.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -37,11 +38,22 @@ public class AccountService {
     }
 
     //POST
-    public Account addNewAccountToACustomer(Long id, Account account){
+    /*public Account addNewAccountToACustomer(Long id, Account account){
         Customer customer = customerRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Does not exist a Customer with id "+id));
         Account acc = new Account(account.getBalance(), customer);
         return accountRepository.save(acc);
+    }*/
+
+    public List<Account> addNewListAccountsToACustomer(Long id, List<Account> accounts){
+        Customer customer = customerRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Does not exist a Customer with id "+id));
+
+        List<Account> accList = new ArrayList<>(accounts.size());
+        for (Account a: accounts) {
+            accList.add(new Account(a.getBalance(), customer));
+        }
+        return accountRepository.saveAll(accList);
     }
 
 

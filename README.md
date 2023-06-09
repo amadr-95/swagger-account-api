@@ -14,7 +14,7 @@ Operaciones CRUD:
 | GET     | /api/accounts/customer/:id             | devuelve una lista de todas las cuentas de un cliente :id |
 | GET     | /api/accounts/:id                      | devuelve la cuenta :id                                    |
 | POST    | /api/customers/new                     | crea un cliente nuevo                                     |
-| POST    | /api/accounts/new/customer/:id         | crea una nueva cuenta para un cliente :id                 |
+| POST    | /api/accounts/new/list/customer/:id    | crea una nueva lista de cuentas para un cliente :id       |
 | PUT     | /api/customers/edit/:id                | actualiza los datos de un cliente :id                     |
 | PUT     | /api/accounts/edit/:id                 | actualiza los datos de una cuenta :id                     |
 | DELETE  | /api/customers/delete/:id              | borra un cliente por :id y todas sus cuentas asociadas    |
