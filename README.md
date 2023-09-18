@@ -24,4 +24,4 @@ These are Apis that we provide:
 | DELETE  | /api/accounts/delete              | delete all accounts                                         |
 
 
-We can try these Apis through Swagger UI at: http://localhost:8080/accounts-management
+We can try these endpoints through Swagger UI at: http://localhost:8080/accounts-management
