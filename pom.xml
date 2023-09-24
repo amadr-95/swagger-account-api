@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>spring-jpa-postgresql</artifactId>
+	<artifactId>spring-data-jpa-swagger</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>spring-jpa-postgresql</name>
-	<description>Demo project for Spring Boot with postgres</description>
+	<name>spring-data-jpa-swagger</name>
+	<description>Spring Boot, PostgreSQL example with Maven, Spring JPA</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
