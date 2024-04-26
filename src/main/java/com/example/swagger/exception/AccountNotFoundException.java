@@ -1,4 +1,4 @@
-package com.example.spring.exception;
+package com.example.swagger.exception;
 
 public class AccountNotFoundException extends RuntimeException {
 

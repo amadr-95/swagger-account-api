@@ -1,4 +1,4 @@
-package com.example.spring.account;
+package com.example.swagger.account;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

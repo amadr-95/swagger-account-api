@@ -1,5 +1,5 @@
 
-package com.example.spring.account;
+package com.example.swagger.account;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

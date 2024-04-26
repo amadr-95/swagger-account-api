@@ -1,4 +1,4 @@
-package com.example.spring.exception;
+package com.example.swagger.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

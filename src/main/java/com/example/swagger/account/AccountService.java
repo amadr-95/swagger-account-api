@@ -1,8 +1,8 @@
-package com.example.spring.account;
+package com.example.swagger.account;
 
-import com.example.spring.exception.AccountNotFoundException;
-import com.example.spring.exception.UserOrEmailException;
-import com.example.spring.exception.UserOrEmailTaken;
+import com.example.swagger.exception.AccountNotFoundException;
+import com.example.swagger.exception.UserOrEmailException;
+import com.example.swagger.exception.UserOrEmailTaken;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,7 +54,7 @@ public class AccountService {
         return accounts;
     }
 
-    /* //Con expresiones lambda
+    /* //lambda expresions
     public List<Account> findByEmailContainsDomain(String domain) {
         return accountRepository.findAll().stream()
                 .filter(a -> a.getEmail().split("@")[1].equalsIgnoreCase(domain))

@@ -1,4 +1,4 @@
-package com.example.spring;
+package com.example.swagger;
 
 import org.springframework.boot.test.context.SpringBootTest;
 

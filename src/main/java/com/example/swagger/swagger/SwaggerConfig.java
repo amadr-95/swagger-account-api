@@ -1,4 +1,4 @@
-package com.example.spring.swagger;
+package com.example.swagger.swagger;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
@@ -24,7 +24,7 @@ public class SwaggerConfig {
         devServer.description("Server URL in Development environment");
 
         Contact contact = new Contact();
-        contact.setEmail("asabido@viavansi.com");
+        contact.setEmail("amasabcar@outlook.com");
         contact.setName("Amador");
 
         License mitLicense = new License().name("MIT License");
