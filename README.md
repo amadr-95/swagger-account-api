@@ -35,4 +35,7 @@ The API exposes the following endpoints
 You can explore and interact with these endpoints using Swagger UI, accessible
 at: http://localhost:8080/accounts-management
 
+![swagger](https://github.com/amadr-95/spring-jpa-postgres-swagger/assets/122611230/92bd5c25-0511-4751-bed8-5269f6d44e31)
+
+
 
