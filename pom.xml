@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>spring-data-jpa-swagger</artifactId>
+	<artifactId>swagger-account-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>spring-data-jpa-swagger</name>
 	<description>Spring Boot, PostgreSQL example with Maven, Spring JPA</description>
